@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -40,6 +41,15 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    protected function registered(Request $request, $user)
+    {
+    $this->guard()->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    event(new Registered($user));
+    return redirect('/login')->with('status', 'パスワード再設定用のメールを送信しました。');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -63,10 +73,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            // 'password' => Hash::make($data['password']),
         ]);
+
+        // パスワードリセット用のトークンを生成
+        $token = app('auth.password.broker')->createToken($user);
+        // パスワードリセット用のメールを送信
+        $user->sendPasswordResetNotification($token);
     }
 }
