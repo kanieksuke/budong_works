@@ -2704,7 +2704,7 @@ fieldset:disabled a.btn {
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #1d68a7;
+  color: white;
   text-decoration: underline;
 }
 .btn-link:focus, .btn-link.focus {
