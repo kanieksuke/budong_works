@@ -14,7 +14,7 @@ return [
     */
 
     'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
+    'sent' => 'パスワード変更メールを送信しました！',
     'token' => 'This password reset token is invalid.',
     'user' => "登録されているEメールアドレスではありません。",
 

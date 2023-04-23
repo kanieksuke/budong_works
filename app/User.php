@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\PasswordResetNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,5 +47,16 @@ class User extends Authenticatable
         self::creating(function ($model) {
             $model->password = Hash::make(Str::random(30)); //ランダムな30文字のパスワードを生成する
         });
+    }
+
+    /**
+     * Override to send for password reset notification.
+     * 
+     * @param [type] $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token));
     }
 }
