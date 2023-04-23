@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header"><b>{{ __('社員登録') }}</b></div>
 
-                <div class="card-body">
+                <div class="card-body">                    
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

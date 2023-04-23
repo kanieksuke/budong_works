@@ -41,13 +41,21 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+    $this->validator($request->all())->validate();
+    $user = $this->create($request->all());
+    event(new Registered($user));
+    return redirect($this->redirectPath());
+    }
+
     protected function registered(Request $request, $user)
     {
     $this->guard()->logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     event(new Registered($user));
-    return redirect('/login')->with('status', 'パスワード再設定用のメールを送信しました。');
+    return redirect('/home')->with('status', '登録が完了しました。');
     }
 
     /**
