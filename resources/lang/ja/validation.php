@@ -145,6 +145,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'employee_code' => '社員番号',
+        'name' => '氏名',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'password_confirmation' => 'パスワード（再入力）'
+    ],
 
 ];

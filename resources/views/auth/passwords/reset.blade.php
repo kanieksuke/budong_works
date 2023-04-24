@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('パスワード') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('password') }}</label>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('パスワード（再入力）') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('password_confirmation') }}</label>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -57,6 +57,11 @@
                                         </span>
                                     </div>
                                 </div>
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
