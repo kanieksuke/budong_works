@@ -7,7 +7,12 @@
             <div class="card">
                 <div class="card-header"><b>{{ __('社員登録') }}</b></div>
 
-                <div class="card-body">                    
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif                    
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

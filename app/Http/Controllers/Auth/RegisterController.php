@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -46,7 +46,8 @@ class RegisterController extends Controller
     $this->validator($request->all())->validate();
     $user = $this->create($request->all());
     event(new Registered($user));
-    return redirect($this->redirectPath());
+    // return redirect($this->redirectPath());
+    return redirect('/login')->with('status', '登録が完了しました。');
     }
 
     protected function registered(Request $request, $user)
@@ -55,7 +56,6 @@ class RegisterController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     event(new Registered($user));
-    return redirect('/home')->with('status', '登録が完了しました。');
     }
 
     /**
