@@ -60,9 +60,9 @@ body {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
-  color: white;
+  color: black;
   text-align: left;
-  background-color: black;
+  background-color: lightgray;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -2260,8 +2260,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  /* background-color: #3490dc; */
-  border-color: white;
+  background-color: green;
+  border-color: black;
 }
 .btn-primary:hover {
   color: black;
@@ -3798,6 +3798,7 @@ input[type=button].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  background-color: rgb(172, 236, 172);
 }
 .navbar .container,
 .navbar .container-fluid,
@@ -4101,19 +4102,19 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-brand {
-  color: white;
+  color: black;
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
-  color: white;
+  color: black;
 }
 .navbar-light .navbar-nav .nav-link {
-  color: white;
+  color: black;
 }
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-  color: white;
+  color: black;
 }
 .navbar-light .navbar-nav .nav-link.disabled {
-  color: white;
+  color: black;
 }
 .navbar-light .navbar-nav .show > .nav-link,
 .navbar-light .navbar-nav .active > .nav-link,
@@ -4182,9 +4183,9 @@ input[type=button].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: black;
+  background-color: lightgray;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -4239,8 +4240,8 @@ input[type=button].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  /* background-color: rgba(0, 0, 0, 0.03); */
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.125);
   text-align: center;
   font-size: large;
 }
