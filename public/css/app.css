@@ -2700,11 +2700,11 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: white;
+  color: green;
   text-decoration: none;
 }
 .btn-link:hover {
-  color: white;
+  color: green;
   text-decoration: underline;
 }
 .btn-link:focus, .btn-link.focus {
