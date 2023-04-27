@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -40,6 +41,23 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+    $this->validator($request->all())->validate();
+    $user = $this->create($request->all());
+    event(new Registered($user));
+    // return redirect($this->redirectPath());
+    return redirect('/login')->with('status', '登録が完了しました。');
+    }
+
+    protected function registered(Request $request, $user)
+    {
+    $this->guard()->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    event(new Registered($user));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,9 +67,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'employee_code' => ['required', 'regex:/^[0-9]{4}$/', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -63,10 +83,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
+            'employee_code' => $data['employee_code'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
         ]);
+
+        // パスワードリセット用のトークンを生成
+        $token = app('auth.password.broker')->createToken($user);
+        // パスワードリセット用のメールを送信
+        $user->sendPasswordResetNotification($token);
     }
 }
