@@ -19,15 +19,15 @@ class LoginController extends Controller
     |
     */
 
-    // use AuthenticatesUsers;
-    use AuthenticatesUsers{
-        logout as doLogout;
-    }
+    use AuthenticatesUsers;
+    // use AuthenticatesUsers{
+    //     logout as doLogout;
+    // }
 
-    public function logout(Request $request){
-        $this->doLogout($request);
-        return redirect('/home');
-    }
+    // public function logout(Request $request){
+    //     $this->doLogout($request);
+    //     return redirect('/home');
+    // }
 
     /**
      * Where to redirect users after login.
