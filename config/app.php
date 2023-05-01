@@ -53,7 +53,7 @@ return [
     */
 
     // 'url' => env('APP_URL', 'http://localhost:8000'),
-    'url' => env('APP_URL', 'https://budong-works.onrender.com/'),
+    'url' => env('APP_URL', 'https://budong-works-0501.onrender.com/'),
 
     'asset_url' => env('ASSET_URL', null),
 
