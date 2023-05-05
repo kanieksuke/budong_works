@@ -127,8 +127,8 @@ return [
         'host' => 'smtp-relay.sendinblue.com',
         'port' => 587,
         'encryption' => 'tls',
-        'username' => env('SENDINBLUE_API_KEY'),
-        'password' => null,
+        'username' => env('MAIL_USERNAME'),
+        'password' => env('MAIL_PASSWORD'),
     ],
 
     /*
