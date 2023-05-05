@@ -16,7 +16,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'mailgun'),
+    // 'driver' => env('MAIL_DRIVER', 'mailgun'),
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +30,8 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp-relay.sendinblue.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,6 +120,15 @@ return [
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
+    ],
+
+    'sendinblue' => [
+        'transport' => 'smtp',
+        'host' => 'smtp-relay.sendinblue.com',
+        'port' => 587,
+        'encryption' => 'tls',
+        'username' => env('SENDINBLUE_API_KEY'),
+        'password' => null,
     ],
 
     /*
