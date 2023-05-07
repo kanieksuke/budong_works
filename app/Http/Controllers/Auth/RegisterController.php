@@ -16,38 +16,36 @@ class RegisterController extends Controller
     | Register Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
+    | このコントローラーは、新しいユーザーの登録と、その検証と作成を処理します。
     |
     */
 
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * 登録後にユーザーをリダイレクトする場所。
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+    // protected $redirectTo = '/register'
 
     /**
-     * Create a new controller instance.
+     * 新しいコントローラー インスタンスを作成します。
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
-    public function register(Request $request)
+    protected function register(Request $request)
     {
     $this->validator($request->all())->validate();
     $user = $this->create($request->all());
     event(new Registered($user));
-    // return redirect($this->redirectPath());
-    return redirect('/login')->with('status', '登録が完了しました。');
+    // return redirect($this->redirectPath())->with('status', '登録が完了しました。');
+    return redirect('/register')->with('status', '登録が完了しました。');
     }
 
     protected function registered(Request $request, $user)
@@ -59,7 +57,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * 新規登録時のバリデーターを取得します。
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -75,7 +73,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * 有効な登録後に新しいユーザー インスタンスを作成します。
      *
      * @param  array  $data
      * @return \App\User
