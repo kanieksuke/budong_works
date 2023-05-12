@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -42,18 +43,8 @@ class RegisterController extends Controller
     protected function register(Request $request)
     {
     $this->validator($request->all())->validate();
-    $user = $this->create($request->all());
-    event(new Registered($user));
-    // return redirect($this->redirectPath())->with('status', '登録が完了しました。');
-    return redirect('/register')->with('status', '登録が完了しました。');
-    }
-
-    protected function registered(Request $request, $user)
-    {
-    $this->guard()->logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    event(new Registered($user));
+    $this->create($request->all());
+    return back()->with('status', '登録が完了しました。');
     }
 
     /**
@@ -68,7 +59,6 @@ class RegisterController extends Controller
             'employee_code' => ['required', 'regex:/^[0-9]{4}$/', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -84,6 +74,7 @@ class RegisterController extends Controller
             'employee_code' => $data['employee_code'],
             'name' => $data['name'],
             'email' => $data['email'],
+            'password' => Hash::make(Str::random(30)) //ランダムな30文字のパスワードを生成する
         ]);
 
         // パスワードリセット用のトークンを生成
